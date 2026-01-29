@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.I.R.E. | Find. Involve. Reach. Engage.</title>
+    <meta name="description"
+        content="A student-led initiative bridging the gap in opportunity access for students worldwide.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Loader -->
+    <div id="loader" class="loader-overlay">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <i class="fa-solid fa-fire"></i>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+            <p>Igniting Opportunities...</p>
+        </div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="scroll-progress"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-fire"></i>
+                <span>F.I.R.E</span>
+            </div>
+            <div class="nav-links">
+                <a href="#hero">Home</a>
+                <a href="#clubs">Clubs</a>
+                <a href="#events">Events</a>
+                <a href="#about">About</a>
+            </div>
+            <div class="nav-actions">
+                <!-- Dark Mode Toggle -->
+                <button class="icon-btn" id="dark-mode-toggle" title="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <!-- Notification Bell -->
+                <button class="icon-btn" id="notification-btn" title="Notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <!-- Auth Section -->
+                <div id="auth-section">
+                    <button class="btn-nav btn-sm" onclick="openLoginModal()">Login</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notification Dropdown -->
+    <div id="notification-dropdown" class="notification-dropdown">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="clear-all">Clear All</button>
+        </div>
+        <div class="notification-list">
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fa-solid fa-calendar"></i>
+                </div>
+                <div class="notification-content">
+                    <p><strong>Robotics Workshop</strong> starts in 2 hours</p>
+                    <span class="notification-time">10 minutes ago</span>
+                </div>
+            </div>
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="notification-content">
+                    <p><strong>Debate Society</strong> accepted your application</p>
+                    <span class="notification-time">1 hour ago</span>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </div>
+                <div class="notification-content">
+                    <p>New announcement from <strong>Student Council</strong></p>
+                    <span class="notification-time">3 hours ago</span>
+                </div>
+            </div>
+        </div>
+        <div class="notification-footer">
+            <a href="#events">View All Notifications</a>
+        </div>
+    </div>
+
+    <!-- Auth Modal (Login/Register) -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+
+            <!-- Login Form -->
+            <div id="login-view" class="auth-box">
+                <div class="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Login to your account.</p>
+                    <p class="mock-hint">Try: <b>admin@fire.edu</b> / <b>admin123</b></p>
+                </div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="login-email" placeholder="student@school.edu" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                    <p class="auth-footer">Don't have an account? <a href="#"
+                            onclick="switchToRegister(event)">Register</a></p>
+                </form>
+            </div>
+
+            <!-- Registration Form -->
+            <div id="register-view" class="auth-box" style="display:none;">
+                <div class="auth-header">
+                    <h2>Create Account</h2>
+                    <p>Join the F.I.R.E community.</p>
+                </div>
+                <form id="register-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" id="reg-firstname" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="reg-lastname" placeholder="Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="reg-email" placeholder="student@school.edu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="reg-password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="reg-confirm-password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Account Type</label>
+                        <select id="reg-role" required>
+                            <option value="">Select your role...</option>
+                            <option value="student">Student</option>
+                            <option value="club-leader">Club Leader</option>
+                            <option value="admin">Faculty / Admin</option>
+                        </select>
+                        <p class="field-hint">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span id="role-description">Choose the role that best describes you.</span>
+                        </p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                    <p class="auth-footer">Already have an account? <a href="#" onclick="switchToLogin(event)">Login</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div id="admin-modal" class="modal-overlay">
+        <div class="modal-content admin-modal-width">
+            <button class="close-modal" onclick="closeAdminModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="admin-dashboard">
+                <div class="admin-header">
+                    <h2><i class="fa-solid fa-lock"></i> Club Management Dashboard</h2>
+                    <button class="btn btn-primary btn-sm" onclick="showAddClubForm()"><i class="fa-solid fa-plus"></i>
+                        Add New Club</button>
+                </div>
+
+                <div id="admin-view-list" class="admin-view">
+                    <p class="admin-intro">Manage all approved clubs on the platform.</p>
+                    <div class="admin-club-list" id="admin-club-list">
+                        <!-- Admin items injected here -->
+                    </div>
+                </div>
+
+                <div id="admin-view-form" class="admin-view" style="display:none;">
+                    <h3>Add / Edit Club</h3>
+                    <form id="club-form">
+                        <input type="hidden" id="club-id">
+                        <div class="form-group">
+                            <label>Club Name</label>
+                            <input type="text" id="club-name" required placeholder="e.g. AI Society">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select id="club-category">
+                                    <option value="stem">STEM</option>
+                                    <option value="arts">Arts & Culture</option>
+                                    <option value="business">Business</option>
+                                    <option value="sports">Sports</option>
+                                    <option value="leadership">Leadership</option>
+                                    <option value="service">Service</option>
+                                    <option value="academic">Academic</option>
+                                    <option value="health">Health & Science</option>
+                                    <option value="lifestyle">Lifestyle</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="club-status">
+                                    <option value="open">Open</option>
+                                    <option value="closed">Closed</option>
+                                    <option value="display">Display Only</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="club-desc" rows="3" required placeholder="Short description..."></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Teacher in Charge</label>
+                                <input type="text" id="club-teacher" required placeholder="e.g. Mr. Smith">
+                            </div>
+                            <div class="form-group">
+                                <label>Est. Year</label>
+                                <input type="text" id="club-year" required placeholder="2024">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" onclick="hideAddClubForm()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Club</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="hero-particles">
+                <div class="particle p1"></div>
+                <div class="particle p2"></div>
+                <div class="particle p3"></div>
+            </div>
+
+            <div class="container hero-content">
+                <div class="hero-badge fade-in">
+                    <i class="fa-solid fa-star-of-life"></i> Student-Led Initiative
+                </div>
+
+                <h1 class="fade-in delay-1">
+                    Find. <span class="text-gradient">Involve.</span><br>
+                    Reach. <span class="text-gradient">Engage.</span>
+                </h1>
+
+                <p class="lead fade-in delay-2">
+                    Making student opportunities visible, accessible, and easy to engage with.<br>
+                    Your one-stop platform for clubs, events, and announcements.
+                </p>
+
+                <div class="hero-actions fade-in delay-3">
+                    <a href="#clubs" class="btn btn-primary btn-lg">Discover Clubs</a>
+                    <a href="#solution" class="btn btn-outline btn-lg">Learn More</a>
+                </div>
+
+                <div class="hero-stats fade-in delay-3">
+                    <div class="stat">
+                        <span class="count">22+</span>
+                        <span class="label">Clubs</span>
+                    </div>
+                    <div class="stat">
+                        <span class="count">100%</span>
+                        <span class="label">Accessible</span>
+                    </div>
+                    <div class="scroll-indicator">
+                        <span class="label">Scroll to explore</span>
+                        <i class="fa-solid fa-arrow-down-long"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-gradient-orb orb-1"></div>
+            <div class="hero-gradient-orb orb-2"></div>
+        </section>
+
+        <!-- The Problem Section - Refined -->
+        <section id="problem" class="section">
+            <div class="section-divider"></div>
+            <div class="container">
+                <div class="section-header fade-in">
+                    <span class="eyebrow">The Challenge</span>
+                    <h2>Why F.I.R.E. Exists</h2>
+                    <p>Bridging the gap between talent and opportunity.</p>
+                </div>
+                <!-- Glassmorphism Cards for Problem -->
+                <div class="problem-grid">
+                    <div class="glass-card fade-in">
+                        <div class="card-icon gradient-1">01</div>
+                        <h3>Information Silos</h3>
+                        <p>Opportunities are often hidden in cluttered inboxes or physical notice boards, making them
+                            easy to miss.</p>
+                    </div>
+                    <div class="glass-card fade-in delay-1">
+                        <div class="card-icon gradient-2">02</div>
+                        <h3>Missed Potential</h3>
+                        <p>When students can't find clubs that match their interests, they lose chances to lead and
+                            grow.</p>
+                    </div>
+                    <div class="glass-card fade-in delay-2">
+                        <div class="card-icon gradient-3">03</div>
+                        <p>Without a centralized platform, students without strong social connections often fall behind.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Solution: F.I.R.E - Ultra Premium -->
+        <section id="solution" class="section solution-premium">
+            <div class="solution-bg-orb orb-left"></div>
+            <div class="solution-bg-orb orb-right"></div>
+
+            <div class="container">
+                <div class="section-header fade-in text-center">
+                    <span class="eyebrow">The Solution</span>
+                    <h2>A Unified Platform for Student Success</h2>
+                    <p class="lead">We've built a digital ecosystem that democratizes access to extracurriculars.</p>
+                </div>
+
+                <div class="solution-grid">
+                    <!-- F.I.R.E Steps as Premium Cards -->
+                    <div class="fire-card fade-in" data-step="1">
+                        <div class="fire-card-glow"></div>
+                        <div class="fire-icon-wrapper">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <h3>Find</h3>
+                        <p>Discover clubs and initiatives instantly with our powerful search and filtering system.</p>
+                        <div class="fire-card-number">01</div>
+                    </div>
+
+                    <div class="fire-card fade-in delay-1" data-step="2">
+                        <div class="fire-card-glow"></div>
+                        <div class="fire-icon-wrapper">
+                            <i class="fa-solid fa-handshake-simple"></i>
+                        </div>
+                        <h3>Involve</h3>
+                        <p>Join communities with a single click and start building meaningful connections.</p>
+                        <div class="fire-card-number">02</div>
+                    </div>
+
+                    <div class="fire-card fade-in delay-2" data-step="3">
+                        <div class="fire-card-glow"></div>
+                        <div class="fire-icon-wrapper">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <h3>Reach</h3>
+                        <p>Promote events to the entire school community with verified announcements.</p>
+                        <div class="fire-card-number">03</div>
+                    </div>
+
+                    <div class="fire-card fade-in delay-3" data-step="4">
+                        <div class="fire-card-glow"></div>
+                        <div class="fire-icon-wrapper">
+                            <i class="fa-solid fa-people-group"></i>
+                        </div>
+                        <h3>Engage</h3>
+                        <p>Build lasting connections and develop skills through active participation.</p>
+                        <div class="fire-card-number">04</div>
+                    </div>
+                </div>
+
+                <!-- Impact Metrics -->
+                <div class="impact-metrics fade-in delay-3">
+                    <div class="metric-item">
+                        <div class="metric-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="metric-data">
+                            <span class="metric-value">100%</span>
+                            <span class="metric-label">Student Access</span>
+                        </div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-icon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="metric-data">
+                            <span class="metric-value">24/7</span>
+                            <span class="metric-label">Availability</span>
+                        </div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div class="metric-data">
+                            <span class="metric-value">Verified</span>
+                            <span class="metric-label">Information</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account System Concept -->
+        <section id="account-system" class="section">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <span class="eyebrow">Governance & Safety</span>
+                    <h2>A Framework of Trust</h2>
+                    <p>Designed to prevent misinformation and ensure a safe, equitable environment for all.</p>
+                </div>
+
+                <div class="roles-grid">
+                    <!-- Student Role -->
+                    <div class="role-card fade-in">
+                        <div class="role-icon student">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <h3>Students</h3>
+                        <p class="role-desc">Open access for every student to explore and connect.</p>
+                        <ul class="role-features">
+                            <li><i class="fa-solid fa-check"></i> Create personal accounts</li>
+                            <li><i class="fa-solid fa-check"></i> Browse all clubs & events</li>
+                            <li><i class="fa-solid fa-check"></i> Register interest instantly</li>
+                        </ul>
+                    </div>
+
+                    <!-- Club Leader Role -->
+                    <div class="role-card fade-in delay-1">
+                        <div class="role-icon leader">
+                            <i class="fa-solid fa-id-badge"></i>
+                        </div>
+                        <h3>Club Leaders</h3>
+                        <p class="role-desc">Empowered to lead, accountable for accuracy.</p>
+                        <ul class="role-features">
+                            <li><i class="fa-solid fa-check"></i> Manage club profiles</li>
+                            <li><i class="fa-solid fa-check"></i> Submit events for review</li>
+                            <li><i class="fa-solid fa-check"></i> Track member sign-ups</li>
+                        </ul>
+                    </div>
+
+                    <!-- Admin Role -->
+                    <div class="role-card fade-in delay-2">
+                        <div class="role-icon admin">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3>Faculty & Admin</h3>
+                        <p class="role-desc">Ensuring safety and standards across the platform.</p>
+                        <ul class="role-features">
+                            <li><i class="fa-solid fa-check"></i> Approve new clubs</li>
+                            <li><i class="fa-solid fa-check"></i> Moderate announcements</li>
+                            <li><i class="fa-solid fa-check"></i> Verify information accuracy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="system-note fade-in delay-3">
+                    <p><i class="fa-solid fa-circle-info"></i> This structure ensures that while students drive the
+                        content, no unverified information reaches the public board.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clubs Directory -->
+        <section id="clubs" class="section">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <span class="eyebrow">Discover</span>
+                    <h2>Clubs Directory</h2>
+                    <p>Explore student-led clubs across all categories.</p>
+                </div>
+
+                <div class="directory-controls fade-in">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="club-search" placeholder="Search for clubs, teachers, or keywords...">
+                    </div>
+                    <div class="filter-pills" id="filter-pills">
+                        <button class="pill active" data-filter="all">All</button>
+                        <button class="pill" data-filter="favorites"><i class="fa-solid fa-heart"
+                                style="color: #ff4d4d; margin-right: 5px;"></i> My Favorites</button>
+                        <button class="pill" data-filter="stem">STEM</button>
+                        <button class="pill" data-filter="academic">Academics</button>
+                        <button class="pill" data-filter="arts">Arts</button>
+                        <button class="pill" data-filter="leadership">Leadership</button>
+                        <button class="pill" data-filter="sports">Sports</button>
+                        <button class="pill" data-filter="business">Business</button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Clubs Grid -->
+                <div class="clubs-grid" id="clubs-container">
+                    <!-- Clubs will be injected here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Events & Announcements with Calendar -->
+        <section id="events" class="section">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <span class="eyebrow">What's Happening</span>
+                    <h2>Events & Announcements</h2>
+                    <p>Stay updated with the latest school activities.</p>
+                </div>
+
+                <div class="calendar-layout">
+                    <!-- Calendar Widget -->
+                    <div class="calendar-wrapper fade-in">
+                        <div class="calendar-header">
+                            <h3 id="current-month-year">October 2024</h3>
+                            <div class="calendar-nav">
+                                <button id="prev-month"><i class="fa-solid fa-chevron-left"></i></button>
+                                <button id="next-month"><i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="calendar-grid-header">
+                            <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                        </div>
+                        <div class="calendar-grid" id="calendar-days">
+                            <!-- Days generated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Events List -->
+                    <div class="events-feed fade-in delay-1">
+                        <div class="feed-header">
+                            <h3>Upcoming</h3>
+                        </div>
+                        <div class="event-feed-item">
+                            <div class="feed-date">
+                                <span class="d-day">15</span>
+                                <span class="d-month">Oct</span>
+                            </div>
+                            <div class="feed-content">
+                                <h4>Leadership Summit 2024</h4>
+                                <span class="badge workshop">Workshop</span>
+                                <p>Main Auditorium • 2:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="event-feed-item">
+                            <div class="feed-date">
+                                <span class="d-day">22</span>
+                                <span class="d-month">Oct</span>
+                            </div>
+                            <div class="feed-content">
+                                <h4>Robotics Qualifiers</h4>
+                                <span class="badge competition">Competition</span>
+                                <p>Science Block • 9:00 AM</p>
+                            </div>
+                        </div>
+                        <div class="event-feed-item highlight-feed">
+                            <div class="feed-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                            <div class="feed-content">
+                                <h4>Student Council Applications</h4>
+                                <p>Deadline: Friday, 5:00 PM</p>
+                                <a href="#" class="text-link">Apply Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Impact Section - Ultra Premium -->
+        <section id="about" class="section about-premium">
+            <div class="about-bg-pattern"></div>
+
+            <div class="container">
+                <div class="about-grid">
+                    <!-- Left: Story -->
+                    <div class="about-story fade-in">
+                        <span class="eyebrow">About F.I.R.E</span>
+                        <h2>Bridging the Opportunity Gap</h2>
+                        <p class="about-intro">F.I.R.E (Find. Involve. Reach. Engage) was born from a simple
+                            observation: <strong>talent is universal, but opportunity is not.</strong></p>
+
+                        <p>Too often, information silos prevent willing students from participating in life-changing
+                            extracurricular activities. We're changing that narrative.</p>
+
+                        <div class="about-mission">
+                            <div class="mission-icon">
+                                <i class="fa-solid fa-rocket"></i>
+                            </div>
+                            <div class="mission-text">
+                                <h4>Our Mission</h4>
+                                <p>To democratize access to opportunities and empower every student to reach their full
+                                    potential.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Stats & Visual -->
+                    <div class="about-visual fade-in delay-1">
+                        <div class="stats-showcase">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-school"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-num">1</span>
+                                    <span class="stat-desc">Pilot School</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-users-gear"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-num">100%</span>
+                                    <span class="stat-desc">Student-Run</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-num">$0</span>
+                                    <span class="stat-desc">Cost to Scale</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="about-quote">
+                            <i class="fa-solid fa-quote-left quote-icon"></i>
+                            <p>"We believe every student deserves equal access to the experiences that shape their
+                                future."</p>
+                            <span class="quote-author">— The Founding Team</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impact Banner -->
+                <div class="impact-banner fade-in delay-2">
+                    <div class="impact-item">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>Open-Source Initiative</span>
+                    </div>
+                    <div class="impact-item">
+                        <i class="fa-solid fa-award"></i>
+                        <span>IB Global Youth Action Fund</span>
+                    </div>
+                    <div class="impact-item">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Built for Students, by Students</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section bg-dark text-white contact-final">
+            <div class="container contact-wrapper fade-in">
+                <div class="contact-content">
+                    <h2>Bring F.I.R.E to Your School</h2>
+                    <p>We are an open-source initiative supported by the IB Global Youth Action Fund. Ready to
+                        democratize opportunities in your community?</p>
+                    <div class="contact-buttons">
+                        <a href="mailto:contact@projectfire.org" class="btn btn-white">Contact the Team</a>
+                        <a href="#" class="btn btn-outline-white">View Documentation</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2024 F.I.R.E. Initiative. IB Global Youth Action Fund Project.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="back-to-top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <!-- UI Feedback Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
